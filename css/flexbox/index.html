@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title>flexbox</title>
+    </head>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            width: 400px;
+            margin-bottom: 10px;
+        }
+        /*
+            example 1
+            - the flex property
+            ----------------------------------------
+        */
+        .example-1 > div {
+            margin: 5px;
+            background: #f1f1f1;
+        }
+        /*
+            example 2
+            - the order property
+            ----------------------------------------
+        */
+        .example-2 > div {
+            margin: 5px;
+            background: #f1f1f1;
+        }
+        .example-2 > div:nth-child(2) {
+            order: -1;
+        }
+        .example-2 > div:nth-child(3) {
+            order: 0;
+        }
+        .example-2 > div:nth-child(1) {
+            order: 1;
+        }
+        /*
+            example 3
+            - alignment in flexbox
+            ----------------------------------------
+        */
+        .example-3 {
+            height: 320px;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: baseline;
+        }
+        .example-3-1 {
+            height: 320px;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .example-3-2 {
+            height: 320px;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        .example-3 > div,
+        .example-3-1 > div,
+        .example-3-2 > div {
+            background: #f1f1f1;
+            margin: 8px;
+            width: 33.3%;
+        }
+        /*
+            example 4
+            - flex-basis 
+            - note: acts like width or height along the flex direction
+            ----------------------------------------
+        */
+        .example-4 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+        .example-4 > div {
+            margin: 5px;
+            flex-grow: 1;
+            background: #f1f1f1;
+        }
+        .example-4 > div:nth-child(1) {flex-basis: 25%}
+        .example-4 > div:nth-child(2) {flex-basis: 50%}
+        .example-4 > div:nth-child(3) {flex-basis: 25%}
+    </style>
+    <body>
+        <h3>flex property</h3>
+        <div class="container example-1">
+            <div>box 1</div>
+            <div>box 2</div>
+            <div>box 3</div>
+        </div>
+        
+        <h3>order property</h3>
+        <div class="container example-2">
+            <div>box 1</div>
+            <div>box 2</div>
+            <div>box 3</div>
+        </div>
+        
+        <h3>alignment properties</h3>
+        <p>align-items: baseline</p>
+        <div class="container example-3">
+            <div>
+                <h4>article 1</h4>
+                <p>some article content some article content some article content some article content some article content</p>
+            </div>
+            <div>
+                <h4>article 2</h4>
+                <p>some article content</p>
+            </div>
+            <div>
+                <h4>article 3</h4>
+                <p>some article content</p>
+            </div>
+        </div>
+        <p>align-items: center</p>
+        <div class="container example-3-1">
+            <div>
+                <h4>article 1</h4>
+                <p>some article content some article content some article content some article content some article content</p>
+            </div>
+            <div>
+                <h4>article 2</h4>
+                <p>some article content</p>
+            </div>
+            <div>
+                <h4>article 3</h4>
+                <p>some article content</p>
+            </div>
+        </div>
+        <p>align-items: flex-end</p>
+        <div class="container example-3-2">
+            <div>
+                <h4>article 1</h4>
+                <p>some article content some article content some article content some article content some article content</p>
+            </div>
+            <div>
+                <h4>article 2</h4>
+                <p>some article content</p>
+            </div>
+            <div>
+                <h4>article 3</h4>
+                <p>some article content</p>
+            </div>
+        </div>
+
+        <h3>flex basis</h3>
+        <div class="container example-4">
+            <div>box 1</div>
+            <div>box 2</div>
+            <div>box 3</div>
+        </div>
+    </body>
+</html>
