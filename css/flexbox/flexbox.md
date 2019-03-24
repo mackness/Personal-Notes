@@ -17,20 +17,7 @@ Because of the complexity this hierarchy can introduce, I recommend sticking wit
 
 ### Cheatsheet
 
-flex: flex | inline-flex
-flex-direction: row | row-reverse | column-reverse
-flex-wrap: nowap | wrap | wrap-reverse
-flex-flow: row nowrap | column-reverse | column wrap | row-reverse wrap-reverse
-order: -1 | 0 | 1
-justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly
-align-items: flex-start | flex-end | center | baseline | stretch
-align-self: flex-start | flex-end | center | baseline | stretch
-align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch
-flex-grow: 0 | 1
-flex-shrink: 0 | 1
-flex-basis: content | same values as width or height properties
-
-| Command | Description |
+| Property | Value |
 | --- | --- |
 | `flex` | flex / inline-flex
 | `flex-direction` |  row / row-reverse / column-reverse
