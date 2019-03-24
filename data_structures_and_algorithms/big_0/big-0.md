@@ -120,4 +120,67 @@ We might still have a sum in a runtime, For example, the epxression 0(B^2 + A) c
 
 the following graph depicts the rate of increase for common runtimes:
 
-top of page 43
+### Multi-Part Algorithms (add vs. multiply)
+
+understand the difference between the following:
+
+```
+for (let a: int in arr) {
+    print(a)
+}
+
+for (let b: int in arr) {
+    print(b)
+}
+```
+the runtme for this is 0(a + b)
+
+```
+for (let a: int in arr) {
+    for (let b: int in arr) {
+        print(b)
+    }
+}
+```
+the runtime for this is 0(a * b)
+
+- If your algorithm is "do this then do that" then you add the runtime
+- If your algorithm is "do this and for each do that" then you multiply the runtimes
+
+### Amortized Time
+An `ArrayList` or a dynamically resizing array, allows you to have the benefits of an array while offering flexibility in it's size. An `ArrayList` is implemented with an array, when the array hits capacity the `ArrayList` class created a new array of 2N size and copies over N elements.
+
+How would you describe the runtime of this process?
+
+The array could be full if the array contains N elements, then inserting a new element will take 0(N) time. You will have to create a new array of size 2N and then copy N elements over. This insertion will take 0(N) time.
+
+> However, we also know that this does not happen very often. The vast majority of the time insertion will be in 0(1) time.
+
+We need a concept that takes both into account. This is what amortized time does. It allows us to describe that yes the worst case happens every once in a while, but once it happens it won't happen again for so long that the cost is `amortized`
+
+as e insert elements, we double the capacity when the size of the array is a power of 2. So after x elements we double the capacity at array sizes 1,2,4,8,16... that doubling takes, respectively 1,2,4,8,16,32... copies 
+
+what is the sum of 1,2,4,8,16...x ? If you read this sum left to right, then it starts with 1 and doubles until it gets to X. If you read right to left it starts with  and halves until it gets to 1.
+
+What is then the sum of X + x/2 + x/4 + x/8 + ... + 1 this is roughly 2X.
+
+therefore, X insertions take 0(2X) time. the amortized time for each insertion is 0(1).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
