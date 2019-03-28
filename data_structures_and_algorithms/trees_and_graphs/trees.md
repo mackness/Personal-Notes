@@ -10,7 +10,7 @@ The tree can not contain cycles. The nodes may or may not be in a particular ord
 
 a very simple class definition for a node is
 
-```
+```ts
 class Node {
     public name: string
     public children: Node[]
@@ -21,7 +21,7 @@ class Node {
 
 You might also have a Tree class to wrap this node. For the purposes of interview questions, we typically do not use a Tree class you can feel free if it makes your code simpler or better but it rarely does.
 
-```
+```ts
 class Tree {
     public root: Node;
     this.root = Node;
@@ -78,7 +78,54 @@ when given a question, many candidates assume the interviewer means a binary sea
 
 ### Balanced vs. Unbalanced
 
-While many trees are balanced, not all are. Ask your interviewer for clarification here. Note that balancing a tree does not mean the left and right subtrees are exactly the same size
+While many trees are balanced, not all are. Ask your interviewer for clarification here. Note that balancing a tree does not mean the left and right subtrees are exactly the same size.
+
+one way to think about a balanced tree is a tree that still supports insertion and finds in 0(log N) time
+
+there is a difference between complete and incomplete binary trees, if a tree has a node that has a right sibling but not a left sibling it is considered a partial binary tree and is not complete. 
+
+A perfect binary tree is one that is full and complete.
+
+### Binary Tree Traversal
+
+in order traversal means to visit - often print - the lft branch, then the current node, and finally the right branch.
+
+```ts
+function inOrderTraversal(TreeNode, Node) {
+    if (node !== null) {
+        inOrderTraversal(node.left);
+        visit(node);
+        inOrderTraversal(node.right)
+    }
+}
+```
+
+pre order traversal, visit the current node before it's child nodes 
+
+```ts
+function preOrderTraversal(TreeNode, Node) {
+    if (node !== null) {
+        visit(node);
+        preOrderTraversal(node.left);
+        preOrderTraversal(node.right);
+    }
+}
+```
+
+post order traversal post order traversal visits the current node after it's child nodes - so the root is the last node visited
+
+```ts
+function postOrderTraversal(TreeNode, Node) {
+    if (node !== null) {
+        postOrderTraversal(node.left);
+        postOrderTraversal(node.right);
+        visit(node);
+    }
+}
+```
+
+
+
 
 
 
