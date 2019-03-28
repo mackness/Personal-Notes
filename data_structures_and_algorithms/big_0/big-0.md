@@ -59,7 +59,7 @@ function pairSumSequence(n: number): number {
     for (let i: number = 0; i < n; i++) {
         sum += pairSum(i, i + i);
     }
-    return sum'
+    return sum
 }
 
 function pairSum(a: number, b: number): number {
