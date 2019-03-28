@@ -47,3 +47,26 @@ This is a bit more compact, bu it isn't quite as clean. We tend to use node clas
 An adjacency matrix (where N is the number of nodes), where a `true` value at `matrix[i][j]` indicates a single edge fro node i to j. you can also use an integer matrix with 0s and 1s 
 
 In an undirected graph, an adjacency matrix will be symmetric. In a directed graph, it will not necessarily be.
+
+The same graph algorithms that are used on adjacency lists (breadth first search ect) cna be performed with adjacency matrices, but they may be somewhat less efficient. In the adjacency list representation, you can easily iterate though the neighbors or a node. In the adjacency matrix representation, you will need to iterate though all the nodes to identify the nodes neighbors. 
+
+### Graph Search
+
+Thw two most common ways to search a graph are depth-first search and breadth first search. 
+
+In depth-first search (DFS), we start at the root or any other arbitrarily selected node and explore each neighbor before going on to any of their children. that is, we go wide before we go deep. 
+
+See the below depiction of a graph and it's depth-first and breadth-first 
+
+[see chapter 4 page 104]
+
+Breadth-first search and depth-first search tend to be used in different scenarios. DFS is often preferred if we want to visit every node in the graph. Both will work just fine, but depth first search is simpler. 
+
+However if we want to find the shortest path between two nodes BFS is generally better. Consider representing all fo the friendships in teh entire world in a graph and trying to find the path of friendships between ash and vanessa. 
+
+in DFS search we could take a path like ash -> brian -> carleton .... and then find ourselves very far away. we could go though most of the world without realizing that, in fact, vanessa is ash's friend. we will still eventually find the path but it may take a long time. we also won't find the shortest path.
+
+in breadth first search, we would stay close to ash for as long as possible. we might iterate through many of ash's friends but we wouldn't go to his more distant connections until absolutely necessary. if vanessa is ash's friend or friend of a friend, we will find out faster than if we were doing depth first search.
+
+
+
