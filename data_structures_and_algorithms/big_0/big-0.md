@@ -31,7 +31,7 @@ Space complexity is a parallel concept to time complexity. If we need to create 
 
 Stack space in recursive calls counts too, For example, code like this would take 0(n) time and 0(n) space 
 
-```
+```ts
 function sum(n: number): number {
     if (n < 0) {
         return 0;
@@ -39,8 +39,10 @@ function sum(n: number): number {
     return n + sum(n-1)
 }
 ```
+
 Each call adds a level to the call stack
-```
+
+```ts
 sum(4)
     -> sum(3)
         -> sum(2)
@@ -50,7 +52,8 @@ sum(4)
 Each of these calls are added to the stack and take up actual memory.
 
 However, just because you have n calls total does not mean it takes 0(n) space. Consider the below function, which adds adjacent elements between 0 and n:
-```
+
+```ts
 function pairSumSequence(n: number): number {
     let sum: number = 0;
     for (let i: number = 0; i < n; i++) {
@@ -71,7 +74,8 @@ It si very possible for 0(n) code to run faster than 0(1) code for specific inpu
 For this reason, we drop the constants in runtime. An algorithm that one might have described as 0(2N) Many people resist doing this, they will see code that has two non nested loops and consider it 0(2N) and think they are being more precise but they are not.
 
 Consider the code
-```
+
+```ts
 const min = Int.MAX_VALUE;
 const max = Int.MIN_VALUE;
 for (let x: number in array: int[]) {
@@ -84,7 +88,7 @@ for (let x: number in array: int[]) {
 }
 ```
 
-```
+```ts
 const min = Int.MAX_VALUE;
 const max = Int.MIN_VALUE;
 for (let x: number in array: int[]) {
@@ -124,7 +128,7 @@ the following graph depicts the rate of increase for common runtimes:
 
 understand the difference between the following:
 
-```
+```ts
 for (let a: int in arr) {
     print(a)
 }
@@ -133,15 +137,17 @@ for (let b: int in arr) {
     print(b)
 }
 ```
+
 the runtme for this is 0(a + b)
 
-```
+```ts
 for (let a: int in arr) {
     for (let b: int in arr) {
         print(b)
     }
 }
 ```
+
 the runtime for this is 0(a * b)
 
 - If your algorithm is "do this then do that" then you add the runtime
@@ -170,7 +176,7 @@ therefore, X insertions take 0(2X) time. the amortized time for each insertion i
 
 We commonly see 0(log N) runtimes. Where does this come from? Let's look at a binary search example. In binary search we are looking for an example X in an N-element sorted array. We first compare x to the midpoint of the array. If x == middle, then we retun x, if x < middle then we search on the left side of the sorted array. If x > middle, then we search on the right side of the sorted array. 
 
-```
+```ts
 search 9 within [1,5,8,9,11,,13,15,19,21]
     compare 9 to 11 -> smaller
         search within [1,5,8,9]
@@ -184,7 +190,7 @@ We start off with N element array to search. Then, after a single step we're dow
 
 The total runtime is then a matter of how many steps (dividing N by 2 each time) we can take until N becomes 1
 
-```
+```ts
 n = 16
 n = 8
 n = 4
@@ -194,7 +200,7 @@ n = 1
 
 We could look at this in reverse (going from 1 to 16 instead of 16 to 1) How many times can we multiply 1 by 2 until we get N?
 
-```
+```ts
 n = 1
 n = 2
 n = 4
@@ -204,7 +210,7 @@ n = 16
 
 What is k in the expression 2^k = N? this is exactly what log expresses
 
-```
+```ts
 2^4 = 16 -> log16 = 4
 log2N = k -> 2^k = N
 ```
@@ -215,7 +221,7 @@ This is a good takeaway for you to have. When you see a problem where the number
 
 Here is a tricky one, what is the runtime of this code?
 
-```
+```ts
 function f(n: number): number {
     if (n <= i) {
         return 1
