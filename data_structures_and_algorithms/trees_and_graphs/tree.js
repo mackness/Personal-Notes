@@ -1,5 +1,4 @@
 
-
 class Node {
     constructor(data) {
         this.left = null;
@@ -55,7 +54,7 @@ class Node {
 
     preOrderTraversal(node) {
         if (node !== null) {
-            this.visit(node)
+            this.visit(node);
             this.preOrderTraversal(node.left);
             this.preOrderTraversal(node.right);
         }
