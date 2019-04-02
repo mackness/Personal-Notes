@@ -25,6 +25,10 @@ flex-basis: 0
 
 note that if you are not using the shorthand flex-basis does not default to 0, it defaults to auto.
 
+in the second example below, flex-basis is set to 20px becuase it's the only value that could possibly have a unit.
+
+in the third example a unitless measurement is defined then a value with a unit is defined so flex-grow gets the unitless value and flex-basis gets the value with the unit and flex-shrink defaults to 1 since a value was not defined.
+
 examples:
 ```css
 .box {
