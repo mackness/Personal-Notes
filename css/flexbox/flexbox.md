@@ -13,6 +13,47 @@ Since our flex-direction here is row, the corresponding dimension is width. If w
 
 Because of the complexity this hierarchy can introduce, I recommend sticking with flex-basis, not setting a width for all flexbox children in row flex-direction or height for all column flex-direction children. It makes it easier to know where your dimension is being set. Flex-basis is the ideal size for the element along the flex-direction if it has enough room.
 
+### Shorthand for flex sizing properties
+
+`flex`: `flex-grow` | `flex-shrink` |  `flex-basis`
+
+each property has a default
+
+flex-grow: 1
+flex-shrink: 1
+flex-basis: 0 
+
+note that if you are not using the shorthand flex-basis does not default to 0, it defaults to auto.
+
+examples:
+```css
+.box {
+    flex: 1;
+    /*
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
+    */
+}
+
+.box1 {
+    flex: 20px;
+    /*
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 20px;
+    */
+}
+
+.box2 {
+    flex: 0 80px;
+    /*
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: 80px;
+    */
+}
+```
 
 
 ### Cheatsheet
