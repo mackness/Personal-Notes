@@ -227,6 +227,7 @@ function f(n: number): number {
         return 1
     }
     return f(n - 1) + f(n - 1);
+}
 ```
 
 A lot of people see the two calls to f as 0(n^2). This is completely incorrect.
