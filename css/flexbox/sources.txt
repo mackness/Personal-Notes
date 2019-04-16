@@ -1,0 +1,6 @@
+1) 
+https://yoksel.github.io/flex-cheatsheet/#flex-basis
+
+2)
+Braithwaite, Garth. “Flexbox Cheat Sheet.” Flexbox Cheatsheet, yoksel.github.io/flex-cheatsheet/#flex-basis.
+https://egghead.io/courses/flexbox-fundamentals
