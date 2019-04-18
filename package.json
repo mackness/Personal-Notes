@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "16.8.6",
     "string-hash": "^1.1.3"
   },
   "devDependencies": {

@@ -117,3 +117,77 @@ Data fetching, setting up a subscription, and manually changing the DOM in React
 > use effect hoook can be thought of as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` combined.
 
 Sometimes, we want to run some additional code after React has updated the DOM. Network requests, manual DOM mutations, and logging are common examples of effects that don’t require a cleanup. We say that because we can run them and immediately forget about them. Let’s compare how classes and Hooks let us express such side effects.
+
+### Addional Hooks
+
+### `useReducer`
+if `useState` is meant for primitive values then `useReducer` is for more complex nested state objects or when the next state depends on the previous state.
+
+Here is a simple coutner useReducer example:
+
+```jsx
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter({initialState}) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+    </>
+  );
+}
+```
+
+### Use Reducer attern side note
+
+Passing down dispatch via context is a great way to avoid passing down callbacks in large component trees. This is a really handy way to fix the callback plumbing problem with large react trees.
+
+*todoApp.js*
+```jsx
+const TodosDispatch = React.createContext(null);
+
+function TodosApp() {
+  // Note: `dispatch` won't change between re-renders
+  const [todos, dispatch] = useReducer(todosReducer);
+
+  return (
+    <TodosDispatch.Provider value={dispatch}>
+      <DeepTree todos={todos} />
+    </TodosDispatch.Provider>
+  );
+}
+```
+
+Any child in the tree inside TodosApp can use the dispatch function to pass actions up to TodosApp:
+
+*deepChild.js*
+```jsx
+function DeepChild(props) {
+  // If we want to perform an action, we can get dispatch from context.
+  const dispatch = useContext(TodosDispatch);
+
+  function handleClick() {
+    dispatch({ type: 'add', text: 'hello' });
+  }
+
+  return (
+    <button onClick={handleClick}>Add todo</button>
+  );
+}
+```
+
+### End use reducer pattern side note
+
