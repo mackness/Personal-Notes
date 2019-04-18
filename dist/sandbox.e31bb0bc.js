@@ -25767,6 +25767,16 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+var INITIAL_STATE = [{
+  id: 1,
+  title: 'a new todo',
+  complete: false
+}, {
+  id: 2,
+  title: 'another new todo',
+  complete: false
+}];
+
 function todoReducer() {}
 
 function App() {
@@ -25775,7 +25785,7 @@ function App() {
       count = _useState2[0],
       setCount = _useState2[1];
 
-  var _useReducer = (0, _react.useReducer)(),
+  var _useReducer = (0, _react.useReducer)(todoReducer),
       _useReducer2 = _slicedToArray(_useReducer, 1),
       todos = _useReducer2[0];
 
