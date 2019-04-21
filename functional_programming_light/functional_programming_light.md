@@ -1,6 +1,6 @@
 # Functional Programming Light
 
-Why functional programming? The techniques that are designed from the mindset having far more confidence over our programs just by reading them. Someone who understands FP and who's disciplined enough to diligently use it thought their programs will write code that they *and others* can read verify and verify that the program is doing what they want.
+Why functional programming? The techniques that are designed from the mindset having far more confidence over our programs just by reading them. Someone who understands FP and who's disciplined enough to diligently use it thought their programs will write code that they _and others_ can read verify and verify that the program is doing what they want.
 
 Confidence is also increased when se use techniques that avoid or minimize likely source of bugs. that is perhaps the biggest selling point of FP, FP programs have fewer bugs and the bugs that do exist are usually in more obvious places and they are also easier to find an fix. FP code seems to be more bug resistent, certainly not bug proof though.
 
@@ -8,11 +8,9 @@ Over time FP will provide the user with increased code readability. The code wil
 
 ### Imperative vs declarative code
 
-Imperative describes the code that most of us probably write naturally; it's focused precisely on instructing the computer how to do something. On the other hand declarative code - the code that we will be learning how to write - is code that is more focused on the what outcome. Declarative code is prone to temp varibales, imperative data flow between functions, reassignments, local and remote mutations, it's possible to grok an imperative program and determine what is happening but it's much harder than declarative one that expresses what is happening in an easier to understand way. 
+Imperative describes the code that most of us probably write naturally; it's focused precisely on instructing the computer how to do something. On the other hand declarative code - the code that we will be learning how to write - is code that is more focused on the what outcome. Declarative code is prone to temp varibales, imperative data flow between functions, reassignments, local and remote mutations, it's possible to grok an imperative program and determine what is happening but it's much harder than declarative one that expresses what is happening in an easier to understand way.
 
 In FP programs there is not as many explicit conditionals, loops, side effects, reassignments, mutations ect instead there are well-known (to the FP world anyways) trustable patterns like filtering, reduction, transducing, and composition. The focus is shifted from the low level how to the higher what outcomes.
-
-
 
 # The nature of functions
 
@@ -26,9 +24,6 @@ Function is a collection of code that can be executed one or more times. While t
 
 A function with an `arity` of 1 is known as a `unary`
 
-A fuction with an `arity` of two is called a `binary` 
+A fuction with an `arity` of two is called a `binary`
 
 A function with an `arity` of three or more is called an `n-ary`
-
-
-

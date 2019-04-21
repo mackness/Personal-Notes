@@ -4,7 +4,6 @@ Why GraphQL, rest does not quite work for modern applications. REST relies on th
 
 [PDF cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)
 
-
 [DevHints cheat sheet](https://devhints.io/graphql)
 
 ### Root Schemas
@@ -254,9 +253,9 @@ Querying and mutating local data can be done with the client directive:
 
 ```ts
 const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
+    query IsUserLoggedIn {
+        isLoggedIn @client
+    }
 `;
 ```
 
@@ -267,25 +266,27 @@ It's possible to add `virtual fields` to data that is received back from the ser
 To add a virtual field we need to extend the type we want to add the field to in this case it's the `Launch` type.
 
 [src/resolvers.js](https://github.com/mackness/apollo-tutorial/blob/a77d2ebee89b2ba2415ab131c33a65eb7e692257/start/client/src/resolvers.js#L19)
+
 ```ts
 export const schema = gql`
-  extend type Launch {
-    isInCart: Boolean!
-  }
+    extend type Launch {
+        isInCart: Boolean!
+    }
 `;
 ```
 
 Then the client side resolver would look like this:
 
 [src/resolvers.js](https://github.com/mackness/apollo-tutorial/blob/a77d2ebee89b2ba2415ab131c33a65eb7e692257/start/client/src/resolvers.js#L25)
+
 ```js
 export const resolvers = {
-  Launch: {
-    isInCart: (launch, _, { cache }) => {
-      const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
-      return cartItems.includes(launch.id);
+    Launch: {
+        isInCart: (launch, _, { cache }) => {
+            const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
+            return cartItems.includes(launch.id);
+        },
     },
-  },
 };
 ```
 
@@ -293,8 +294,7 @@ we need to specify a client resolver so we can tell Apollo how to resolve the ne
 
 ### Updating local data
 
-There are two ways to update local data, *direct cache writes* and *client resolvers*. direct writes are generally used for simple primitive values where resolvers are used more more complex updates like adding an object to the end of a list.
-
+There are two ways to update local data, _direct cache writes_ and _client resolvers_. direct writes are generally used for simple primitive values where resolvers are used more more complex updates like adding an object to the end of a list.
 
 ### Direct write examples
 
