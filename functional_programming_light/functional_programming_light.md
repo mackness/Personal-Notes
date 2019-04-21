@@ -14,7 +14,6 @@ In FP programs there is not as many explicit conditionals, loops, side effects, 
 
 
 
-
 # The nature of functions
 
 functions are at the center of functional programming (big surprise!) but it's not just the `function` keyword that makes code functional; it's how the functions are used.
@@ -30,4 +29,6 @@ A function with an `arity` of 1 is known as a `unary`
 A fuction with an `arity` of two is called a `binary` 
 
 A function with an `arity` of three or more is called an `n-ary`
+
+
 

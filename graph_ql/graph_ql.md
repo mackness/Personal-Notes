@@ -2,7 +2,10 @@
 
 Why GraphQL, rest does not quite work for modern applications. REST relies on the idea that your use cases are mapped out and finalized before development has begun and makes it very difficult for backend to adapt to changing front end requirements after development has started. GraphQL makes it much easier to backends to adapt to changing front end requirements because a graph is at the center of the architecture allowing for front ends to write flexible queries. Also solves the issue of over fetching data because you can use a flexible query language to get only the information you need an nothing more.
 
-Useful [cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)
+[PDF cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)
+
+
+[DevHints cheat sheet](https://devhints.io/graphql)
 
 ### Root Schemas
 
@@ -137,6 +140,15 @@ getData(_, args, context, info)
 
 Apollo wraps all resolvers in a try catch block, if an error is thrown inside a resolver the error is caught and sent back to the client without crashing the server process.
 
+OR
+
+`fieldName: (parent, args, context, info) => data;`
+
+`parent`: An object that contains the result returned from the resolver on the parent type
+`args`: An object that contains the arguments passed to the field
+`context`: An object shared by all resolvers in a GraphQL operation. We use the context to contain per-request state such as authentication information and access our data sources.
+info: Information about the execution state of the operation which should only be used in advanced cases
+
 ### Nested Resolvers
 
 It's possible ot write resolvers for types and fields of types. Consider the following resolver:
@@ -229,3 +241,7 @@ Given the above code what would you expect the result of the query to be? well t
 ```
 
 Why? well in this case top level resolvers are delegating to child resolvers. If we consider how `Owner.cat.name` is being resolved first the top level `owner` resolver runs which returns an empty object and since that's supposed to be an owner type it tells GQL to go look up the fields for the `Owner` type. Since the `Owner` type exits it run the Owner type field resolvers that we asked for in the query in this case it's name and cat. Name resolves to a Scalar type so we're done for that field. cat on the other hand resolves to a `Cat` type and the owner.cat resolver returned an empty object so that tells GQL to go look up the `Cat` type resolvers, since the `Cat` type exists and it has resolvers we continue to run the Cat.name resolver since that's what we asked for in the query and that resolves down to a Scalar type so we're done.
+
+### Basics of authenticating a user
+
+The auth logic should live in the [context function](https://github.com/mackness/apollo-tutorial/blob/0276f8d73a558e6b25c91493a64c6543b7574e83/start/server/src/index.js#L14) that is passed to `ApolloClient` constructor as part of the configuration object. That function will run on each request and the object that is reurned by that function is mapped to the context parameter of each resolver function. That's helpful because we can use that information in a resolver function to determine the user's auth state.
