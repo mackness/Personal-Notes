@@ -245,3 +245,82 @@ Why? well in this case top level resolvers are delegating to child resolvers. If
 ### Basics of authenticating a user
 
 The auth logic should live in the [context function](https://github.com/mackness/apollo-tutorial/blob/0276f8d73a558e6b25c91493a64c6543b7574e83/start/server/src/index.js#L14) that is passed to `ApolloClient` constructor as part of the configuration object. That function will run on each request and the object that is reurned by that function is mapped to the context parameter of each resolver function. That's helpful because we can use that information in a resolver function to determine the user's auth state.
+
+With the ApolloClient it's possible to persist the auth token to local storage as well as set the logged in state in the Apollo cache. That work happens [here](https://github.com/mackness/apollo-tutorial/blob/12c61eb030b6cefb6bd40e31569d848d5bee25b6/start/client/src/pages/login.js#L20-L21)
+
+### Write to a local schema
+
+Querying and mutating local data can be done with the client directive:
+
+```ts
+const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+```
+
+### Adding virtual fields to server data
+
+It's possible to add `virtual fields` to data that is received back from the server. These fields only exist on the client and are useful for decorating your remote data with local state. In the following example we're going to add an `isInCart` field to the `Launch` type.
+
+To add a virtual field we need to extend the type we want to add the field to in this case it's the `Launch` type.
+
+[src/resolvers.js](https://github.com/mackness/apollo-tutorial/blob/a77d2ebee89b2ba2415ab131c33a65eb7e692257/start/client/src/resolvers.js#L19)
+```ts
+export const schema = gql`
+  extend type Launch {
+    isInCart: Boolean!
+  }
+`;
+```
+
+Then the client side resolver would look like this:
+
+[src/resolvers.js](https://github.com/mackness/apollo-tutorial/blob/a77d2ebee89b2ba2415ab131c33a65eb7e692257/start/client/src/resolvers.js#L25)
+```js
+export const resolvers = {
+  Launch: {
+    isInCart: (launch, _, { cache }) => {
+      const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
+      return cartItems.includes(launch.id);
+    },
+  },
+};
+```
+
+we need to specify a client resolver so we can tell Apollo how to resolve the newly added virtual field. In this case we are resolving the data from the client side cache.
+
+### Updating local data
+
+There are two ways to update local data, *direct cache writes* and *client resolvers*. direct writes are generally used for simple primitive values where resolvers are used more more complex updates like adding an object to the end of a list.
+
+
+### Direct write examples
+
+Here is another [example](https://github.com/mackness/apollo-tutorial/blob/1f27f77e2ef5932ec4015ce0b753446bb0036e7c/start/client/src/containers/logout-button.js#L14) of a direct write when the user clicks the logout button the `isLoggedIn` boolean is written to the local cache. The local storage values are cleared as well to remove the auth token.
+
+[Here](https://github.com/mackness/apollo-tutorial/blob/bcbae43ae6f721d3a9fbe7c041e47d53615ac7bf/start/client/src/containers/book-trips.js#L31) is another example of a local write to the client side cache. In this example after the user has booked a trip the cart items need to be cleared.
+
+### Local resolvers examples
+
+If we want to perform a more complex update we need to use a local resolver. Local resolvers have the same function signature as remote resolvers (`(parent, args, context, info) => data`) the only difference is that the Apollo cache is already added to the context for you. Inside your resolver you will use the cache to read and write data
+
+Let's write the local resolver for the `addOrRemoveFromCart` mutation. You should place this resolver underneath the `Launch` resolver we wrote earlier.
+
+```js
+  Mutation: {
+    addOrRemoveFromCart: (_, { id }, { cache }) => {
+      const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
+      const data = {
+        cartItems: cartItems.includes(id)
+          ? cartItems.filter(i => i !== id)
+          : [...cartItems, id],
+      };
+      cache.writeQuery({ query: GET_CART_ITEMS, data });
+      return data.cartItems;
+    },
+  },
+```
+
+The above resolver reads the cart items in the cache, filters out the cart item by id if it exists, if it does not exist it adds it to the end of the cart items list and then it writes the new cart items list to the client side cache and returns the new cart items data.
