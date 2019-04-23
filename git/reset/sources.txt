@@ -1,0 +1,1 @@
+1) https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting

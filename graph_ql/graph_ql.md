@@ -324,3 +324,67 @@ Let's write the local resolver for the `addOrRemoveFromCart` mutation. You shoul
 ```
 
 The above resolver reads the cart items in the cache, filters out the cart item by id if it exists, if it does not exist it adds it to the end of the cart items list and then it writes the new cart items list to the client side cache and returns the new cart items data.
+
+### Interfaces, Unions, and Fragments
+
+Interfaces are basically inheritable types for your schema. If some types are really similar with the exception of a few fields you can use that type as an interface and have other types implement that interface. Works almost the exact same way as a TS interface.
+
+If you have fragments in your request you can conditionally ask for type specific fields
+
+Given the following schema we get an error in the playground when we run a query for species:
+
+```ts
+  const rootSchema = `
+    interface Animal {
+      species: String!
+    }
+
+    type Tiger implements Animal {
+      species: String!
+      stripeCount: Int!
+    }
+
+    type Lion implements Animal {
+      species: String!
+      maneColor: String!
+    }
+
+    type Query {
+      animals: [Animal]!
+    }
+
+    schema {
+      query: Query
+    }
+```
+
+The error looks like this:
+
+```text
+Abstract type Animal must resolve to an Object type at runtime for field Query.animals with value { species: \"Tiger\" }, received \"undefined\". Either the Animal type should provide a \"resolveType\" function or each possible type should provide an \"isTypeOf\" function.
+```
+
+This is Apollo's way of telling us that we can't query for an interface type we need to be more specific can query for a fully qualified type definition. Interfaces are abstract and can't be directly queried for.
+
+To fix this error we need to help Apollo manually resolve the Animal type with the `__resolveType` method, here's what that looks like in this case:
+
+```ts
+{
+    resolvers: {
+      Query: {
+        animals() {
+          return [{ species: 'Tiger' }, { species: 'Lion' }]
+        }
+      },
+      Animal: {
+        __resolveType(animal) {
+          return animal.species
+        }
+      }
+    }
+}
+```
+
+Since species exists on animal we can just return that field which will map to the name of the animal's respective type name
+
+### Inline fragments
