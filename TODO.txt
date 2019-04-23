@@ -1,1 +1,3 @@
 https://overreacted.io/a-complete-guide-to-useeffect/
+
+https://kentcdodds.com/blog/application-state-management-with-react
