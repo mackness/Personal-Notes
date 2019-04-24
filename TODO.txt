@@ -2,4 +2,4 @@ https://overreacted.io/a-complete-guide-to-useeffect/
 
 https://kentcdodds.com/blog/application-state-management-with-react
 
-https://www.youtube.com/watch?v=orq9XnHGTgQ
+https://www.atlassian.com/git/tutorials/refs-and-the-reflog
