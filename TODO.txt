@@ -3,3 +3,5 @@ https://overreacted.io/a-complete-guide-to-useeffect/
 https://kentcdodds.com/blog/application-state-management-with-react
 
 https://www.atlassian.com/git/tutorials/refs-and-the-reflog
+
+https://graphql.org/learn/best-practices/
