@@ -388,3 +388,32 @@ To fix this error we need to help Apollo manually resolve the Animal type with t
 Since species exists on animal we can just return that field which will map to the name of the animal's respective type name
 
 ### Inline fragments
+
+Inline fragments in a query look like this where you can conditionally ask for fields based on type. Type Lion has `maneColor` field and type Tiger has `stripeCount` field. This is useful when you have similar types with slightly different fields. `maneColor` does not exist on Tiger so we need a way to access fields conditionally.
+
+```ts
+query GetSpeciesQuery {
+  animals {
+    species
+    age
+    ... on Lion {
+      maneColor
+    }
+    ... on Tiger {
+      stripeCount
+    }
+  }
+}
+```
+
+### Union types
+
+Sometimes you want a query to return more than just one type. Unions are types that are comprised of other types that are joined together where any of the times may be returned by the query
+
+```
+union Products = Bike | Drone | GamingPc
+```
+
+### Authentication
+
+It's possible to handle auth outside of graphQL before the request ever makes it to apollo in upstream middleware. Auth can also be handled in the context function. The first parameter of the context function is the `req` object which gives you access to the parameters you would need to figure out weather or not the user is authenticated. It's also possible to handle auth on a resolver level. It's also possible to use custom directives in SDL.
