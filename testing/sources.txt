@@ -1,0 +1,1 @@
+https://testingjavascript.com/lessons/jest-override-object-properties-to-mock-with-monkey-patching-in-javascript
